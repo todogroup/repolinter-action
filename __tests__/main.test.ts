@@ -26,6 +26,9 @@ describe('main', () => {
 
   jest.setTimeout(30000)
 
+  // disable live network connections
+  nock.disableNetConnect()
+
   beforeEach(() => {
     // reset process.env
     process.env = {}
@@ -289,11 +292,9 @@ describe('main', () => {
   test('runs a failing URL config', async () => {
     const configPath = path.resolve(__dirname, 'testconfig.json')
     process.env[getInputName(ActionInputs.CONFIG_URL)] =
-      'https://raw.githubusercontent.com/aperture-science-incorporated/.github/master/repolinter.json'
+      'http://test/repolinter.json'
 
-    nock('https://raw.githubusercontent.com')
-      .get('/aperture-science-incorporated/.github/master/repolinter.json')
-      .replyWithFile(200, configPath)
+    nock('http://test').get('/repolinter.json').replyWithFile(200, configPath)
 
     const expected = jsonFormatter.formatOutput(
       await lint(

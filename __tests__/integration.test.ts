@@ -66,14 +66,12 @@ describe('integration', () => {
   test('runs a URL config', async () => {
     const baseEnv = getBaseEnv()
     baseEnv[getInputName(ActionInputs.CONFIG_URL)] =
-      'https://raw.githubusercontent.com/aperture-science-incorporated/.github/master/repolinter.json'
+      'http://test/repolinter.json'
 
     const {out, code} = await runAction(Object.assign({}, process.env, baseEnv))
 
     expect(code).not.toEqual(0)
-    expect(out).toContain(
-      'https://raw.githubusercontent.com/aperture-science-incorporated/.github/master/repolinter.json'
-    )
+    expect(out).toContain('http://test/repolinter.json')
     expect(out).not.toContain('undefined')
   })
 

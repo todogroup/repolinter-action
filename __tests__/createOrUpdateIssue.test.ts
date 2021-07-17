@@ -40,6 +40,9 @@ function atLeastObject(matcher: {
 }
 
 describe('createOrUpdateIssue', () => {
+  // disable live network connections
+  nock.disableNetConnect()
+
   // supress github actions commands inside tests
   beforeEach(() => process.stdout.write('::stop-commands::running-tests\n'))
   afterEach(() => process.stdout.write('::running-tests::\n'))
