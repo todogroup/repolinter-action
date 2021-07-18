@@ -38,7 +38,7 @@ inputs:
     required: false
     description: >
       A path to the JSON or YAML Repolinter ruleset to use, relative to the 
-      working directory (i.e. under `$GITHUB_WORKSPACE`). 
+      `directory` input.
       
       This option is mutually exclusive with config_url. If this option and 
       config-url are not specified, Repolinter's default ruleset will be used.

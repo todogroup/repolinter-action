@@ -276,6 +276,7 @@ describe('main', () => {
         true
       )
     )
+    expected.params.rulesetPath = configPath
 
     await run()
     const outputs = getOutputs(spooledStdout)
@@ -291,20 +292,23 @@ describe('main', () => {
 
   test('runs a failing URL config', async () => {
     const configPath = path.resolve(__dirname, 'testconfig.json')
-    process.env[getInputName(ActionInputs.CONFIG_URL)] =
-      'http://test/repolinter.json'
+    const configUrl = 'http://test/repolinter.json'
+    process.env[getInputName(ActionInputs.CONFIG_URL)] = configUrl
 
     nock('http://test').get('/repolinter.json').replyWithFile(200, configPath)
 
-    const expected = jsonFormatter.formatOutput(
-      await lint(
-        '.',
-        undefined,
-        JSON.parse(await fs.promises.readFile(configPath, 'utf8')),
+    const expected = JSON.parse(
+      jsonFormatter.formatOutput(
+        await lint(
+          '.',
+          undefined,
+          JSON.parse(await fs.promises.readFile(configPath, 'utf8')),
+          true
+        ),
         true
-      ),
-      true
+      )
     )
+    expected.params.rulesetPath = configUrl
 
     await run()
     const outputs = getOutputs(spooledStdout)
@@ -313,7 +317,7 @@ describe('main', () => {
     expect(outputs[ActionOutputs.ERRORED]).toEqual('false')
     expect(outputs[ActionOutputs.PASSED]).toEqual('false')
     expect(JSON.parse(outputs[ActionOutputs.JSON_OUTPUT])).toMatchObject(
-      JSON.parse(expected)
+      expected
     )
     expect(process.exitCode).not.toEqual(0)
   })
@@ -330,7 +334,7 @@ describe('main', () => {
   test('runs in a custom directory', async () => {
     process.env[getInputName(ActionInputs.DIRECTORY)] = './__tests__/testfolder'
     process.env[getInputName(ActionInputs.CONFIG_FILE)] =
-      './__tests__/testfolder/nestedtestconfig.json'
+      './nestedtestconfig.json'
 
     await run()
     const outputs = getOutputs(spooledStdout)
@@ -386,21 +390,24 @@ describe('main', () => {
     await run()
     const outputs = getOutputs(spooledStdout)
 
-    const expected = jsonFormatter.formatOutput(
-      await lint(
-        '.',
-        undefined,
-        JSON.parse(await fs.promises.readFile(configPath, 'utf8')),
+    const expected = JSON.parse(
+      jsonFormatter.formatOutput(
+        await lint(
+          '.',
+          undefined,
+          JSON.parse(await fs.promises.readFile(configPath, 'utf8')),
+          true
+        ),
         true
-      ),
-      true
+      )
     )
+    expected.params.rulesetPath = configPath
 
     // console.debug(out)
     expect(outputs[ActionOutputs.ERRORED]).toEqual('false')
     expect(outputs[ActionOutputs.PASSED]).toEqual('true')
     expect(JSON.parse(outputs[ActionOutputs.JSON_OUTPUT])).toMatchObject(
-      JSON.parse(expected)
+      expected
     )
     expect(process.exitCode).toEqual(0)
   })
@@ -424,15 +431,18 @@ describe('main', () => {
     process.env[getInputName(ActionInputs.OUTPUT_TYPE)] = 'issue'
     process.env[getInputName(ActionInputs.TOKEN)] = '123315213523b53'
 
-    const expected = jsonFormatter.formatOutput(
-      await lint(
-        '.',
-        undefined,
-        JSON.parse(await fs.promises.readFile(configPath, 'utf8')),
+    const expected = JSON.parse(
+      jsonFormatter.formatOutput(
+        await lint(
+          '.',
+          undefined,
+          JSON.parse(await fs.promises.readFile(configPath, 'utf8')),
+          true
+        ),
         true
-      ),
-      true
+      )
     )
+    expected.params.rulesetPath = configPath
 
     await run(true)
     const outputs = getOutputs(spooledStdout)
@@ -441,7 +451,7 @@ describe('main', () => {
     expect(outputs[ActionOutputs.PASSED]).toEqual('false')
     expect(outputs[ActionOutputs.JSON_OUTPUT])
     expect(JSON.parse(outputs[ActionOutputs.JSON_OUTPUT])).toMatchObject(
-      JSON.parse(expected)
+      expected
     )
     expect(process.exitCode).toEqual(0)
 

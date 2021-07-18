@@ -101,8 +101,7 @@ describe('integration', () => {
   test('runs a config in a custom directory', async () => {
     const baseEnv = getBaseEnv()
     baseEnv[getInputName(ActionInputs.DIRECTORY)] = './__tests__/testfolder'
-    baseEnv[getInputName(ActionInputs.CONFIG_FILE)] =
-      './__tests__/testfolder/nestedtestconfig.json'
+    baseEnv[getInputName(ActionInputs.CONFIG_FILE)] = 'nestedtestconfig.json'
 
     const {out, code} = await runAction(Object.assign({}, process.env, baseEnv))
 

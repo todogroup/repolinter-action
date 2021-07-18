@@ -9,7 +9,6 @@ import {
   jsonFormatter
 } from 'repolinter'
 import * as fs from 'fs'
-import getConfig from './getConfig'
 import createOrUpdateIssue from './createorUpdateIssue'
 
 function getInputs(): {[key: string]: string} {
@@ -78,10 +77,7 @@ export default async function run(disableRetry?: boolean): Promise<void> {
       process.env['GITHUB_TOKEN'] = TOKEN
     }
     // get the config
-    const config = await getConfig({
-      configFile: CONFIG_FILE,
-      configUrl: CONFIG_URL
-    })
+    const config = CONFIG_FILE || CONFIG_URL || null
     // run the linter!
     const result = await lint(DIRECTORY, undefined, config, true)
     core.debug(JSON.stringify(result))

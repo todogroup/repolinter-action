@@ -17,8 +17,8 @@ The original version of this tool was created by [New Relic](https://github.com/
     # Defaults to $GITHUB_WORKSPACE.
     directory: ''
 
-    # A path to the JSON/YAML Repolinter ruleset to use, relative to the workflow
-    # working directory (i.e. under `$GITHUB_WORKSPACE`).
+    # A path to the JSON/YAML Repolinter ruleset to use, relative to the
+    # `directory` input.
     # 
     # This option is mutually exclusive with config_url. If this option and 
     # config_url are not specified, Repolinter's default ruleset will be used.
