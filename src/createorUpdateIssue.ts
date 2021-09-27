@@ -241,6 +241,8 @@ export async function createRepolinterIssue(
           : undefined
     })
   } catch (e) {
+    if (!(e instanceof RequestError)) throw e
+
     if (e.status === 404)
       throw new Error(
         'Creating an issue returned a 404! Is your token valid/does it have the correct permissions?'

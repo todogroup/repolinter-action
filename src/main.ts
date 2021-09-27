@@ -140,17 +140,16 @@ export default async function run(disableRetry?: boolean): Promise<void> {
     core.setOutput(ActionOutputs.ERRORED, true)
     core.setOutput(ActionOutputs.PASSED, false)
     core.setFailed('A fatal error was thrown.')
-    if (error.name === 'HttpError') {
-      const requestError = error as RequestError
+    if (error instanceof RequestError) {
       // Octokit threw an error, so we can print out detailed information
       core.error(
         'Octokit API call failed. This may be due to your token permissions or an issue with the GitHub API. If the error persists, feel free to open an issue.'
       )
       core.error(
-        `${requestError.request.method} ${requestError.request.url} returned status ${requestError.status}`
+        `${error.request.method} ${error.request.url} returned status ${error.status}`
       )
       core.debug(JSON.stringify(error))
-    } else if (error.stack) core.error(error.stack)
-    else core.error(error)
+    } else if (error instanceof Error) core.error(error.stack || error)
+    else core.error(Object.prototype.toString.call(error))
   }
 }

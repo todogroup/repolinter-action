@@ -1,4 +1,4 @@
-FROM ghcr.io/todogroup/repolinter:v0.11.1
+FROM ghcr.io/todogroup/repolinter:v0.11.2
 
 # copy repolinter-action
 WORKDIR /repolinter-action
