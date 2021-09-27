@@ -7,5 +7,5 @@
   "trailingComma": "none",
   "bracketSpacing": false,
   "arrowParens": "avoid",
-  "jsdocParser": true
+  "plugins": ["prettier-plugin-jsdoc"]
 }

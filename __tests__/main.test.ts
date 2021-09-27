@@ -3,6 +3,7 @@ import run from '../src/main'
 import * as path from 'path'
 import nock from 'nock'
 import * as fs from 'fs'
+import {TextDecoder} from 'util'
 import {lint, jsonFormatter} from 'repolinter'
 
 function getInputName(input: string): string {

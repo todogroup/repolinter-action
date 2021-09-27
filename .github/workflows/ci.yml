@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: '15'
+          node-version: '14'
 
       - name: Cache NPM
         uses: actions/cache@v2
@@ -31,9 +31,6 @@ jobs:
 
       - name: Lint
         run: npm run lint
-
-      - name: Typescript Build
-        run: npm run build
 
       - name: NCC Package
         run: npm run package
@@ -134,7 +131,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '15'
+          node-version: '14'
 
       - name: Cache NPM
         uses: actions/cache@v2
@@ -146,9 +143,6 @@ jobs:
 
       - name: Install Dependencies
         run: npm ci
-
-      - name: Build
-        run: npm run build
 
       - name: Package
         run: npm run package
