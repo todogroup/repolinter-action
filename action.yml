@@ -111,7 +111,7 @@ outputs:
     description: 'The JSON output from the repolinter run, from repolinter.jsonFormatter.'
 runs:
   using: 'docker'
-  image: docker://ghcr.io/todogroup/repolinter-action:v1.7.2
+  image: docker://ghcr.io/todogroup/repolinter-action:v1.7.3
   env:
     INPUT_DIRECTORY: ${{ inputs.directory }}
     INPUT_TOKEN: ${{ inputs.token }}

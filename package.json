@@ -1,6 +1,6 @@
 {
   "name": "repolinter-action",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "private": true,
   "description": "GitHub action to automatically enforce open source policies using Repolinter",
   "main": "src/entry.ts",

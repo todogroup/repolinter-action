@@ -1,3 +1,10 @@
+## [1.7.3](https://github.com/todogroup/repolinter-action/compare/v1.7.2...v1.7.3) (2021-09-28)
+
+
+### Bug Fixes
+
+* update dependencies, including repolinter docker base ([3de85ee](https://github.com/todogroup/repolinter-action/commit/3de85eeec70a3b8366dd31897d97da25e2f31ede))
+
 ## [1.7.2](https://github.com/todogroup/repolinter-action/compare/v1.7.1...v1.7.2) (2021-07-22)
 
 
